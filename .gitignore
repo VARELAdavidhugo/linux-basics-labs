@@ -1,0 +1,11 @@
+# Editors
+.vscode/
+.idea/
+*.swp
+
+# OS
+.DS_Store
+
+# Builds / temps
+*.log
+tmp/
