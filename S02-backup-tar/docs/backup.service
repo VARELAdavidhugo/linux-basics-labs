@@ -1,0 +1,9 @@
+# ~/.config/systemd/user/backup.service
+[Unit]
+Description=Sauvegarde utilisateur (.tar.gz) Palier 1
+
+[Service]
+Type=oneshot
+ExecStart=%h/linux-backup-palier1/scripts/backup.sh
+# Pour loguer dans un fichier :
+# Environment=LOG_FILE=%h/backup.log

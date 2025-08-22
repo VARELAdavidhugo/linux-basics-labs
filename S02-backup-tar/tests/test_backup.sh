@@ -1,0 +1,22 @@
+#!/usr/bin/env bash
+set -euo pipefail
+ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
+SCRIPTS="$ROOT/scripts"
+TMP_SRC="$(mktemp -d)"
+TMP_DEST="$(mktemp -d)"
+echo "[TEST] Préparation de données..."
+mkdir -p "$TMP_SRC/sub"
+echo "hello" > "$TMP_SRC/file1.txt"
+dd if=/dev/zero of="$TMP_SRC/sub/big.bin" bs=1K count=10 >/dev/null 2>&1
+echo "[TEST] Exécution sauvegarde..."
+"$SCRIPTS/backup.sh" "$TMP_SRC" "$TMP_DEST"
+echo "[TEST] Vérification..."
+ARCHIVE="$(ls -1t "$TMP_DEST"/sauvegarde_*.tar.gz | head -n1)"
+test -f "$ARCHIVE"
+tar -tzf "$ARCHIVE" | grep -q "file1.txt"
+echo "[TEST] Restauration..."
+RESTORE_DIR="$(mktemp -d)"
+"$SCRIPTS/restore.sh" "$ARCHIVE" "$RESTORE_DIR"
+echo "[TEST] Validation de contenu..."
+grep -q "hello" "$RESTORE_DIR/$(basename "$TMP_SRC")/file1.txt"
+echo "[OK] Tous les tests ont réussi."

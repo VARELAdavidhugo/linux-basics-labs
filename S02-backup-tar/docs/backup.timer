@@ -1,0 +1,9 @@
+# ~/.config/systemd/user/backup.timer
+[Unit]
+Description=Lance backup.service chaque jour à 02:15
+[Timer]
+OnCalendar=*-*-* 02:15:00
+Persistent=true
+Unit=backup.service
+[Install]
+WantedBy=timers.target
