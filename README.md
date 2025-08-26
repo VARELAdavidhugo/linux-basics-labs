@@ -26,6 +26,16 @@ Objectif : progresser pas à pas en administration systèmes et DevOps.
   - planification via `cron` et `systemd`
   - tests automatisés (`tests/test_backup.sh`)
 
+### S03-storage-fs
+Gestion du stockage et des filesystems :
+- ajout d’un disque virtuel (VirtualBox)
+- partitionnement (`fdisk`, `sfdisk`)
+- formatage (`mkfs.ext4`)
+- montage temporaire (`mount`, `umount`)
+- persistance via `/etc/fstab` (UUID recommandé)
+- vérification (`lsblk`, `df -h`)
+- tests automatisés (`tests/test_storage.sh`)
+
 ---
 
 ## 🚀 Objectifs pédagogiques
