@@ -13,3 +13,27 @@ Ajouter un disque virtuel (VirtualBox), créer une partition, formater en EXT4, 
 
 ## Commandes utiles
 - `lsblk`, `df -h`, `mount/umount`, `mkfs.ext4`, `/etc/fstab`
+
+## ✅ Preuves d'exécution
+
+
+## ✅ Preuves d'exécution
+
+
+
+## ✅ Preuves d'exécution
+
+
+$ lsblk
+sdb 10G
+└─sdb1 10G
+
+$ mount | grep /mnt/data
+/dev/sdb1 on /mnt/data type ext4 (rw,relatime)
+
+$ df -h | grep /mnt/data
+/dev/sdb1 9,8G 2,1M 9,3G 1% /mnt/data
+
+$ ./tests/test_storage.sh /mnt/data
+[RESULT] Tous les tests OK ✅
+
