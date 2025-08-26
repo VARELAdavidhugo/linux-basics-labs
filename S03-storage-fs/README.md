@@ -1,39 +1,52 @@
-# 🗄️ Palier 3 — Stockage & Filesystems (Projet)
+# Linux Basics Labs
+Portfolio d’apprentissage Linux réalisé sur Debian/Proxmox/VirtualBox.  
+Objectif : progresser pas à pas en administration systèmes et DevOps.
 
-## Objectif
-Ajouter un disque virtuel (VirtualBox), créer une partition, formater en EXT4, monter sur `/mnt/data` et rendre le montage **persistant** via `/etc/fstab`.
+📂 Sommaire des labs
 
-## Étapes rapides
-1. Ajouter un disque de 10 Go dans VirtualBox (VM éteinte).
-2. Redémarrer Debian → vérifier `lsblk` (voir `/dev/sdb`).
-3. Créer + formater: `sudo ./scripts/create_partition.sh /dev/sdb`
-4. Monter + persister: `sudo ./scripts/mount_persistent.sh /dev/sdb1 /mnt/data`
-5. Tester: `./tests/test_storage.sh /mnt/data`
-6. Rebooter et vérifier que `/mnt/data` est monté automatiquement ✅
+### S00-setup
+Préparation de l’environnement : installation VM, configuration de base.
 
-## Commandes utiles
-- `lsblk`, `df -h`, `mount/umount`, `mkfs.ext4`, `/etc/fstab`
+### S01-shell
+Bases du shell Linux :
+- navigation (`ls`, `cd`, `pwd`)
+- manipulation de fichiers (`cp`, `mv`, `rm`, `mkdir`, `touch`)
+- affichage et recherche (`cat`, `less`, `head`, `tail`, `grep`, `find`)
+- redirections et pipes (`>`, `>>`, `|`)
 
-## ✅ Preuves d'exécution
+### S02-backup-tar
+Script Bash de sauvegarde `.tar.gz` avec :
+- horodatage automatique
+- exclusions via `.backupignore`
+- vérification d’intégrité (`tar -tzf`)
+- rétention des anciennes sauvegardes
+- planification via `cron` et `systemd`
+- tests automatisés (`tests/test_backup.sh`)
 
+### S03-storage-fs
+Gestion du stockage et des filesystems :
+- ajout d’un disque virtuel (VirtualBox)
+- partitionnement (`fdisk`, `sfdisk`)
+- formatage (`mkfs.ext4`, optionnel `mkfs.xfs`)
+- montage temporaire (`mount`, `umount`)
+- persistance via `/etc/fstab` (UUID recommandé)
+- vérification (`lsblk`, `df -h`, `blkid`)
+- tests d’I/O (`./tests/test_storage.sh`)
 
-## ✅ Preuves d'exécution
+---
 
+🚀 Objectifs pédagogiques
+- Devenir autonome en ligne de commande Linux.  
+- Apprendre à écrire des scripts Bash robustes.  
+- Automatiser des tâches système (sauvegarde, stockage, planification).  
+- Construire un portfolio technique démontrant mes compétences.
 
+🔧 Outils utilisés
+- Linux (Debian)  
+- Bash scripting  
+- Git / GitHub  
+- Cron & systemd (user services)  
+- VirtualBox / Proxmox (environnement de test)
 
-## ✅ Preuves d'exécution
-
-
-$ lsblk
-sdb 10G
-└─sdb1 10G
-
-$ mount | grep /mnt/data
-/dev/sdb1 on /mnt/data type ext4 (rw,relatime)
-
-$ df -h | grep /mnt/data
-/dev/sdb1 9,8G 2,1M 9,3G 1% /mnt/data
-
-$ ./tests/test_storage.sh /mnt/data
-[RESULT] Tous les tests OK ✅
-
+📄 Licence
+Projet sous licence MIT.
